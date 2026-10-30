@@ -1,29 +1,36 @@
 package com.example.mpazpro.ui.pantallas
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 
 @Composable
-fun PantallaDocente(onVolver: () -> Unit) {
+fun PantallaDocente(onVolver: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -39,17 +46,16 @@ fun PantallaDocente(onVolver: () -> Unit) {
                 .padding(24.dp)
         ) {
             Spacer(modifier = Modifier.height(32.dp))
-
             Text(text = "6.º BÁSICO", color = Color(0xFF4C63E6), fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Configuración del curso", color = Color(0xFF0F172A), fontSize = 28.sp, fontWeight = FontWeight.Bold, lineHeight = 36.sp)
+            Text(text = "Configuración del curso", color = Color(0xFF0F172A), fontSize = 28.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Organiza los objetivos de aprendizaje y define la evaluación final.", color = Color(0xFF64748B), fontSize = 15.sp, lineHeight = 22.sp)
+            Text(text = "Organiza los objetivos de aprendizaje y define la evaluación final.", color = Color(0xFF64748B), fontSize = 15.sp)
 
             Spacer(modifier = Modifier.height(24.dp))
             TarjetaAsignatura()
-            Spacer(modifier = Modifier.height(32.dp))
 
+            Spacer(modifier = Modifier.height(32.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(text = "Objetivos de aprendizaje", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
@@ -73,14 +79,28 @@ fun PantallaDocente(onVolver: () -> Unit) {
 
 @Composable
 fun BarraLateral(onVolver: () -> Unit) {
+    var fotoPerfilUri by remember { mutableStateOf<Uri?>(null) }
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? -> fotoPerfilUri = uri }
+
     Column(
         modifier = Modifier.width(80.dp).fillMaxHeight().background(Color(0xFF1E293B)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(48.dp))
-        Surface(color = Color(0xFF334155), shape = RoundedCornerShape(12.dp), modifier = Modifier.size(44.dp)) {
-            Box(contentAlignment = Alignment.Center) { Icon(Icons.Default.Book, null, tint = Color.White, modifier = Modifier.size(24.dp)) }
+
+        // LOGO DE LA APP DESTACADO CON COLOR INVERTIDO
+        Surface(
+            color = Color(0xFF4C63E6),
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.size(44.dp)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                com.example.mpazpro.ui.componentes.LogoMpaz(tint = Color.White, modifier = Modifier.size(24.dp))
+            }
         }
+
         Spacer(modifier = Modifier.height(32.dp))
         Surface(color = Color(0xFF334155), shape = RoundedCornerShape(12.dp), modifier = Modifier.size(44.dp)) {
             Box(contentAlignment = Alignment.Center) { Icon(Icons.Default.GridView, null, tint = Color.White, modifier = Modifier.size(24.dp)) }
@@ -90,19 +110,22 @@ fun BarraLateral(onVolver: () -> Unit) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // NUEVO: Botón Volver al inicio
-        IconButton(onClick = onVolver, modifier = Modifier.size(44.dp)) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ExitToApp,
-                contentDescription = "Volver",
-                tint = Color(0xFF94A3B8),
-                modifier = Modifier.size(24.dp)
-            )
+        IconButton(onClick = onVolver) {
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver", tint = Color(0xFF94A3B8), modifier = Modifier.size(28.dp))
         }
+
         Spacer(modifier = Modifier.height(16.dp))
 
-        Surface(color = Color(0xFF475569), shape = RoundedCornerShape(12.dp), modifier = Modifier.size(44.dp)) {
-            Box(contentAlignment = Alignment.Center) { Text("MG", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp) }
+        Surface(
+            color = Color(0xFF475569),
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.size(44.dp).clip(RoundedCornerShape(12.dp)).clickable { galleryLauncher.launch("image/*") }
+        ) {
+            if (fotoPerfilUri != null) {
+                AsyncImage(model = fotoPerfilUri, contentDescription = "Foto", modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            } else {
+                Box(contentAlignment = Alignment.Center) { Text("MG", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp) }
+            }
         }
         Spacer(modifier = Modifier.height(48.dp))
     }
