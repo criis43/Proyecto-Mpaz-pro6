@@ -25,7 +25,7 @@ fun LogoMpaz(
 
         val colorContraste = if (tint == Color.White) Color(0xFF4C63E6) else Color.White
 
-        // 1. LIBRO (Izquierda)
+        // 1. LIBRO
         val pathLibroBase = Path().apply {
             moveTo(sx(12f), sy(32f))
             lineTo(sx(38f), sy(32f))
@@ -44,7 +44,7 @@ fun LogoMpaz(
         }
         drawPath(pathPaginaHoja, color = tint)
 
-        // 2. LÁPIZ (Centro)
+        // 2. LÁPIZ
         val pathLapiz = Path().apply {
             moveTo(sx(44f), sy(28f))
             quadraticTo(sx(50f), sy(22f), sx(56f), sy(28f))
@@ -62,7 +62,7 @@ fun LogoMpaz(
         }
         drawPath(pathLineaLapiz, color = colorContraste, style = Stroke(width = sx(2.5f)))
 
-        // 3. ESCUELA (Derecha)
+        // 3. ESCUELA
         val pathEscuela = Path().apply {
             moveTo(sx(60f), sy(38f))
             lineTo(sx(74f), sy(22f))

@@ -146,7 +146,7 @@ fun TarjetaRevisionMaterial(
     onAprobar: () -> Unit,
     onRechazar: () -> Unit
 ) {
-    // ANIMACIÓN 1: Cambio de color de fondo suavizado
+    // animacion
     val colorBordeAnimado by animateColorAsState(
         targetValue = when (material.estado) {
             EstadoMaterial.APROBADO -> Color(0xFFBBF7D0)
@@ -182,7 +182,7 @@ fun TarjetaRevisionMaterial(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // ANIMACIÓN 2: Transición fluida con AnimatedVisibility entre botones y la confirmación
+
             AnimatedVisibility(
                 visible = material.estado == EstadoMaterial.PENDIENTE,
                 enter = fadeIn(animationSpec = tween(300)),

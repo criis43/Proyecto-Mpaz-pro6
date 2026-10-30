@@ -23,12 +23,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun PantallaRegistro(onVolver: () -> Unit) {
-    // 1. Estados para guardar lo que escribe el usuario
+    // Estados para guardar lo que escribe el usuario
     var nombre by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    // 2. Estados para manejar los errores (True = hay error)
+    // Estados para manejar los errores (True = hay error)
     var errorNombre by remember { mutableStateOf(false) }
     var errorCorreo by remember { mutableStateOf(false) }
     var errorPassword by remember { mutableStateOf(false) }
@@ -50,14 +50,14 @@ fun PantallaRegistro(onVolver: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Textos del encabezado
+
         Text(text = "Crear Cuenta", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = "Regístrate para acceder a MPAZ PRO 6.0", fontSize = 15.sp, color = Color(0xFF64748B))
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- CAMPO: NOMBRE ---
+        // nombre
         OutlinedTextField(
             value = nombre,
             onValueChange = { nombre = it; errorNombre = false },
@@ -72,7 +72,7 @@ fun PantallaRegistro(onVolver: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // --- CAMPO: CORREO ---
+        // correo
         OutlinedTextField(
             value = correo,
             onValueChange = { correo = it; errorCorreo = false },
@@ -87,7 +87,7 @@ fun PantallaRegistro(onVolver: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // --- CAMPO: CONTRASEÑA ---
+        // contraseña
         OutlinedTextField(
             value = password,
             onValueChange = { password = it; errorPassword = false },
@@ -103,7 +103,7 @@ fun PantallaRegistro(onVolver: () -> Unit) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // --- BOTÓN DE REGISTRO CON LÓGICA DE VALIDACIÓN ---
+        // boton registro
         Button(
             onClick = {
                 // Evaluamos las reglas de negocio
@@ -111,12 +111,12 @@ fun PantallaRegistro(onVolver: () -> Unit) {
                 val correoValido = correo.contains("@") && correo.contains(".")
                 val passwordValida = password.length >= 6
 
-                // Actualizamos los estados visuales de error
+                // error
                 errorNombre = !nombreValido
                 errorCorreo = !correoValido
                 errorPassword = !passwordValida
 
-                // Si todo está correcto, avanzamos (Por ahora, solo simulamos éxito volviendo al Login)
+                // correcto
                 if (nombreValido && correoValido && passwordValida) {
                     onVolver() // Regresa al login
                 }

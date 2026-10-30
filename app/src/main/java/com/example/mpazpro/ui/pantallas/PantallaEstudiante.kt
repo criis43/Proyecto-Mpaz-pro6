@@ -60,7 +60,7 @@ fun PantallaEstudiante(onVolver: () -> Unit = {}) {
             .fillMaxSize()
             .background(Color(0xFFFAFAFA))
     ) {
-        // Barra Lateral con Avatar "TS" + Galería Nativa + Botón Volver
+        // Barra Lateral
         BarraLateralEstudiante(onVolver = onVolver)
 
         // Contenido Principal
@@ -73,7 +73,6 @@ fun PantallaEstudiante(onVolver: () -> Unit = {}) {
         ) {
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Encabezado
             Text(text = "MI APRENDIZAJE", color = Color(0xFF4C63E6), fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "¡Hola, Tomás!", color = Color(0xFF0F172A), fontSize = 32.sp, fontWeight = FontWeight.Bold)
@@ -82,7 +81,7 @@ fun PantallaEstudiante(onVolver: () -> Unit = {}) {
 
             Spacer(modifier = Modifier.height(28.dp))
 
-            // Subtítulo Mis Asignaturas
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -98,7 +97,7 @@ fun PantallaEstudiante(onVolver: () -> Unit = {}) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Lista de Tarjetas de Asignaturas
+
             asignaturas.forEach { item ->
                 TarjetaAsignaturaEstudiante(item)
                 Spacer(modifier = Modifier.height(16.dp))
@@ -118,7 +117,7 @@ fun TarjetaAsignaturaEstudiante(item: AsignaturaEstudiante) {
         color = Color.White
     ) {
         Row(modifier = Modifier.height(IntrinsicSize.Min)) {
-            // Banda de color acento lateral
+
             Box(
                 modifier = Modifier
                     .width(6.dp)
@@ -211,7 +210,7 @@ fun BarraLateralEstudiante(onVolver: () -> Unit) {
     ) {
         Spacer(modifier = Modifier.height(48.dp))
 
-        // LOGO DE LA APP DESTACADO CON COLOR INVERTIDO
+        // LOGO DE LA APP
         Surface(
             color = Color(0xFF4C63E6),
             shape = RoundedCornerShape(12.dp),

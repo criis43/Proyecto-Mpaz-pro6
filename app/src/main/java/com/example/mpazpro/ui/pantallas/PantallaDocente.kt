@@ -90,7 +90,7 @@ fun BarraLateral(onVolver: () -> Unit) {
     ) {
         Spacer(modifier = Modifier.height(48.dp))
 
-        // LOGO DE LA APP DESTACADO CON COLOR INVERTIDO
+        // LOGO DE LA APP
         Surface(
             color = Color(0xFF4C63E6),
             shape = RoundedCornerShape(12.dp),

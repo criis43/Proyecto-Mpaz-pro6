@@ -15,7 +15,7 @@ object PreferenciasHelper {
         getPrefs(context).edit().putString("material_estado_$materialId", estado).apply()
     }
 
-    // Lee el estado guardado desde el almacenamiento interno del teléfono
+    // Lee el estado guardado desde el almacenamiento
     fun obtenerEstadoMaterial(context: Context, materialId: Int): String {
         return getPrefs(context).getString("material_estado_$materialId", "PENDIENTE") ?: "PENDIENTE"
     }

@@ -16,7 +16,7 @@ import com.example.mpazpro.util.PreferenciasHelper
 
 class UtpViewModel : ViewModel() {
 
-    // Estado desacoplado de la vista (Mantiene los datos en memoria ante rotación)
+
     val listaMateriales = mutableStateListOf<MaterialAcademico>()
 
     fun cargarMateriales(contexto: Context) {
